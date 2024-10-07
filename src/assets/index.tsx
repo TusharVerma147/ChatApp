@@ -30,7 +30,7 @@ const Icons = {
     copy:require('./icons/copy.png'),
     star1:require('./icons/star1.png'),
     edit:require('./icons/edit-text.png'),
-
+    telegram:require('./icons/telegram.png'),
   };
   
   

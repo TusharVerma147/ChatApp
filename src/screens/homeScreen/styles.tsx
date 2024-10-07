@@ -70,7 +70,7 @@ export default StyleSheet.create({
         backgroundColor: colors.white,
         borderBottomWidth: 1,
         paddingVertical: 15,
-        borderColor: colors.lightgray,
+        borderColor: 'lightgray'
       },
       imageStyle: {
         width: 45,

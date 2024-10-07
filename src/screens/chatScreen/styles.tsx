@@ -55,11 +55,13 @@ export default StyleSheet.create({
     backgroundColor: colors.white,
     marginHorizontal: 10,
     borderWidth: 1,
-    borderColor: colors.gray,
+    borderColor: colors.modalText,
     paddingHorizontal: 10,
+    marginTop:11
   },
   containerStyle: {
-    paddingVertical: 5,
+    paddingVertical: 10,
+    // backgroundColor:'#fffaf0'
   },
   msgContainer:{
    marginVertical:3,
@@ -182,7 +184,7 @@ export default StyleSheet.create({
     borderRadius: 8,
   },
   primaryCont1: {
-    backgroundColor: colors.lightgray,
+    backgroundColor: 'lightgray',
     marginHorizontal: 10,
     justifyContent: 'center',
     alignItems: 'center',

@@ -26,7 +26,8 @@ const Home = ({navigation}: {navigation: any}) => {
 
   const [chattedUsers, setChattedUsers] = useState<ChattedUser[]>([]);
 
-  
+
+
 
 
   const loadChattedUsers = async () => {

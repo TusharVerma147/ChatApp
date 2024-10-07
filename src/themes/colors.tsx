@@ -13,5 +13,6 @@ modalText:'#60707D',
 buttoncolor:'rgba(42, 123, 187, 1)',
 lightgray:'d3d3d3',
 outerspace:'#414a4c',
-lightred:'#414a4c'
+bl:'#414a4c',
+lightred:'#ffc1c3'
 }

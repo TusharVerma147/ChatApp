@@ -18,7 +18,7 @@ import Chat from '../screens/chatScreen';
 const RootNavigator = () => {
 
 const Stack = createNativeStackNavigator();
-//   const navigationRef = useNavigationContainerRef();
+
 
   return (
     <NavigationContainer >
@@ -30,19 +30,16 @@ const Stack = createNativeStackNavigator();
         <Stack.Screen
           component={SplashScreen}
             name={ScreenNames.Splash}
-          // name="splashScreen"
           options={{headerShown: false}}
         />
         <Stack.Screen
           component={Search}
             name={ScreenNames.Search}
-          // name="splashScreen"
           options={{headerShown: false}}
         />
        <Stack.Screen
           component={Chat}
             name={ScreenNames.Chat}
-          // name="splashScreen"
           options={{headerShown: false}}
         />
      

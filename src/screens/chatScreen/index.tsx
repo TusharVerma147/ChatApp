@@ -155,7 +155,7 @@ const Chat = ({navigation}: {navigation: any}) => {
 
   const renderSend = props => (
     <Send {...props} containerStyle={styles.sendCont}>
-      <Image source={Icons.plane} style={styles.send} />
+      <Image source={Icons.telegram} style={styles.send} />
     </Send>
   );
 
@@ -193,20 +193,7 @@ const Chat = ({navigation}: {navigation: any}) => {
   };
 
 
-  // const renderMessage = props => {
-  //   const {currentMessage} = props;
-  //   return (
-  //     <View>
-  //       <Bubble {...props} />
-  //       {currentMessage.emoji ? (
-  //         <View style={styles.reactionContainer}>
-  //           <Text style={styles.reactionEmoji}>{currentMessage.emoji}</Text>
-  //         </View>
-  //       ) : null}
-  //     </View>
-  //   );
-  // };
-
+ 
 
   const renderMessage = props => {
     const {currentMessage} = props;
