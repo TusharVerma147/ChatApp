@@ -13,7 +13,7 @@ import CustomTextInput from '../../components/CustomTextInput';
 import PrimaryButton from '../../components/PrimaryButton';
 import CustomModal from '../../components/CustomModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useFocusEffect } from '@react-navigation/native';
+import {useFocusEffect} from '@react-navigation/native';
 
 interface ChattedUser {
   id: number;
@@ -42,11 +42,10 @@ const Home = ({navigation}: {navigation: any}) => {
     }
   };
 
-  
   useFocusEffect(
     useCallback(() => {
       loadChattedUsers();
-    }, [])
+    }, []),
   );
 
   const renderItem = ({item}: {item: any}) => (
@@ -75,6 +74,9 @@ const Home = ({navigation}: {navigation: any}) => {
     navigation.navigate('Search');
     setModalVisible(false);
   };
+
+ 
+
   return (
     <View style={styles.container}>
       <View style={styles.upper}>
@@ -89,25 +91,30 @@ const Home = ({navigation}: {navigation: any}) => {
       <View style={styles.lower}>
         <View style={styles.input}>
           <Image source={Icons.search} />
-          <CustomTextInput placeholder="Search messages..." />
-        </View>
-       <View style={styles.listCont}>
-        {chattedUsers.length > 0 ? (
-          <FlatList
-            data={chattedUsers}
-            renderItem={renderItem}
-            // keyExtractor={item => item.name}
+          <CustomTextInput
+            placeholder="Search messages..."
+         
           />
-        ) : (
-          <View style={styles.nochat}>
-            <Image style={styles.nochatimg} source={Icons.nochat} />
-            <PrimaryButton
-              text="Start Chat"
-              onPress={startchat}
-              bg="rgba(42, 123, 187, 1)"
+        </View>
+        <View style={styles.listCont}>
+          {chattedUsers.length > 0 ? (
+            <FlatList
+              data={chattedUsers}
+              renderItem={renderItem}
+              // keyExtractor={item => item.name}
             />
-          </View>
-        )}
+          ) : (
+            <View style={styles.nochat}>
+              <Image style={styles.nochatimg} source={Icons.nochat} />
+              <PrimaryButton
+                text="Start Chat"
+                onPress={startchat}
+                bg="rgba(42, 123, 187, 1)"
+              />
+            </View>
+          )}
+   
+
         </View>
       </View>
       <CustomModal

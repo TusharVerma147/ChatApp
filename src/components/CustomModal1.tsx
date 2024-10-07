@@ -9,7 +9,7 @@ import {
   Image,
 } from 'react-native';
 import Icons from '../assets';
-
+import { colors } from '../themes';
 interface CustomModalProps {
   visible: boolean;
   onClose: () => void;
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: colors.transparent
   },
   modalContent: {
     borderRadius: 20,
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: 10,
     paddingVertical: 30,
-    backgroundColor: 'white',
+    backgroundColor: colors.white
   },
   listview: {
     flexDirection: 'row',
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   },
   chattext: {
     paddingLeft: 12,
-    color: '#3a4f5f',
+    color: colors.blue,
     fontSize: 15,
   },
   delete:{
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     resizeMode:'contain'
   },
   deletetext:{
-    color:'red',
+    color:colors.red,
     paddingLeft: 12,
     fontSize: 15,
   }

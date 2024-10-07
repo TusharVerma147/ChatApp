@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, TextInput, StyleSheet, TextInputProps } from 'react-native';
+import { colors } from '../themes';
 
 interface CustomTextInputProps extends TextInputProps {
   placeholder: string;
@@ -22,9 +23,9 @@ const CustomTextInput: React.FC<CustomTextInputProps> = ({ placeholder, value, o
 const styles = StyleSheet.create({
   text: {
     fontSize: 15,
-    fontWeight: '500', // Use numeric value for weight in RN
+    fontWeight: '500', 
     paddingHorizontal: 15,
-    color: '#000', // Ensure text is visible with proper color
+    color: colors.black
   },
 });
 

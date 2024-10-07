@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, TouchableOpacityProps } from 'react-native';
+import { colors } from '../themes';
 
 interface PrimaryButtonProps extends TouchableOpacityProps {
   text: string;
@@ -26,7 +27,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   primary: {
-    color: 'white',
+    color: colors.white,
     fontWeight: '500',
     fontSize: 16,
   },

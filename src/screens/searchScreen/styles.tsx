@@ -1,9 +1,10 @@
 import {  StyleSheet,  } from 'react-native';
+import { colors } from '../../themes';
 
 export default StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#e7edf3',
+      backgroundColor: colors.shadyblue,
       
     },
     header: {
@@ -19,7 +20,7 @@ export default StyleSheet.create({
       flex: 1,
      marginVertical: 19,
       marginRight: 16,
-      backgroundColor: 'white',
+      backgroundColor: colors.white,
       borderRadius: 8,
       paddingLeft: 16,
       flexDirection: 'row',
@@ -30,7 +31,7 @@ export default StyleSheet.create({
       flexDirection: 'row',
       alignItems: 'center',
       paddingHorizontal: 10,
-      backgroundColor: 'white',
+      backgroundColor: colors.white,
       borderBottomWidth: 1,
       paddingVertical: 15,
       borderColor: 'lightgray',
@@ -40,21 +41,21 @@ export default StyleSheet.create({
       height: 45,
       borderRadius: 50,
       marginRight: 10,
-      backgroundColor: '#2A7BBB',
+      backgroundColor: colors.skyblue,
       justifyContent: 'center',
       alignItems: 'center',
     },
     text: {
       fontWeight: '500',
-      color: 'gray',
+      color: colors.gray,
     },
     textimg: {
       fontWeight: '500',
-      color: 'white',
+      color:colors.white
     },
     listCont:{
       flex:1,
-      backgroundColor:'white',
+      backgroundColor:colors.white,
       borderRadius:8,
       marginHorizontal: 16,
       padding:8,

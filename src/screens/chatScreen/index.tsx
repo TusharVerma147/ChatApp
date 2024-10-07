@@ -8,6 +8,7 @@ import {
   Modal,
   Alert,
   FlatList,
+  TouchableWithoutFeedback
 } from 'react-native';
 import React, {useState, useEffect, useCallback} from 'react';
 import {GiftedChat, InputToolbar, Send, Bubble} from 'react-native-gifted-chat';
@@ -221,8 +222,9 @@ const Chat = ({navigation}: {navigation: any}) => {
     };
   
     return (
-      <View>
+      <View style={styles.msgContainer}>
         <Bubble {...props} />
+       
         {currentMessage.emoji ? (
           <TouchableOpacity onPress={handleEmojiTap}>
             <View style={styles.reactionContainer}>
@@ -230,6 +232,7 @@ const Chat = ({navigation}: {navigation: any}) => {
             </View>
           </TouchableOpacity>
         ) : null}
+      
       </View>
     );
   };
@@ -263,6 +266,7 @@ const Chat = ({navigation}: {navigation: any}) => {
           onSend={messages => {
             setMsgs(prev => GiftedChat.append(prev, messages));
           }}
+          alignTop={true}
           onLongPress={handleLongPress}
           user={{_id: userId}}
           renderMessage={renderMessage}
@@ -281,6 +285,7 @@ const Chat = ({navigation}: {navigation: any}) => {
         animationType="fade"
         transparent
         onRequestClose={() => setReactionModalVisible(false)}>
+             <TouchableWithoutFeedback onPress={()=>setReactionModalVisible(false)}>
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
             <FlatList
@@ -337,6 +342,7 @@ const Chat = ({navigation}: {navigation: any}) => {
             </TouchableOpacity>
           </View>
         </View>
+        </TouchableWithoutFeedback>
       </Modal>
       <Modal
         transparent

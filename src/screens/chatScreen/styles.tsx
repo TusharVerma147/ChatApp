@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import { colors } from '../../themes';
 export default StyleSheet.create({
   container: {
     flex: 1,
@@ -25,17 +26,17 @@ export default StyleSheet.create({
     height: 45,
     borderRadius: 50,
     marginRight: 10,
-    backgroundColor: '#2A7BBB',
+    backgroundColor: colors.skyblue,
     justifyContent: 'center',
     alignItems: 'center',
   },
   profileimgtext: {
-    color: 'white',
+    color: colors.white,
     fontWeight: 'bold',
   },
   nametext: {
     fontWeight: '700',
-    color: 'black',
+    color:colors.black,
     fontSize: 20,
   },
   clocked: {
@@ -47,25 +48,29 @@ export default StyleSheet.create({
     height: 30,
     width: 30,
   },
-  giftedview: {backgroundColor: '#E7EDF3', flex: 1},
+  giftedview: {backgroundColor: colors.shadyblue, flex: 1,paddingTop:10 },
 
   textinputstyle: {
     borderRadius: 8,
-    backgroundColor: 'white',
+    backgroundColor: colors.white,
     marginHorizontal: 10,
     borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: colors.gray,
     paddingHorizontal: 10,
   },
   containerStyle: {
     paddingVertical: 5,
+  },
+  msgContainer:{
+   marginVertical:3,
+   marginRight:5
   },
   add: {
     width: 30,
     height: 30,
     marginLeft: 10,
     marginVertical: 5,
-    backgroundColor: 'gray',
+    backgroundColor: colors.gray,
     borderRadius: 50,
   },
   send: {
@@ -82,7 +87,7 @@ export default StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.5)',
   },
   modalContent: {
-    backgroundColor: 'white',
+    backgroundColor: colors.white,
     height: '60%',
     paddingHorizontal: 10,
     paddingVertical: 30,
@@ -107,7 +112,7 @@ export default StyleSheet.create({
   },
   chattext: {
     paddingLeft: 12,
-    color: '#3a4f5f',
+    color: colors.blue,
     fontSize: 15,
   },
   delete: {
@@ -121,17 +126,17 @@ export default StyleSheet.create({
     fontSize: 15,
   },
   reactionContainer: {
-    backgroundColor: 'beige',
+    backgroundColor: colors.react,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: 360,
-    paddingVertical: 10,
-    paddingHorizontal:5,
+    paddingVertical:5 ,
+    // paddingHorizontal:5,
     marginTop: -5,
     borderRadius: 20,
-    marginRight: 10,
-    marginBottom: 5,
+    marginRight: 23,
+    // marginBottom: 5,
   },
   reactionEmoji: {
     fontSize: 18,
@@ -140,12 +145,12 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: colors.transparent,
   },
   modalContainer1: {
     width: 346,
     height: 300,
-    backgroundColor: 'white',
+    backgroundColor: colors.white,
     borderRadius: 16,
     justifyContent: 'center',
     alignItems: 'center',
@@ -157,10 +162,10 @@ export default StyleSheet.create({
     textAlign: 'center',
     fontSize: 20,
     fontWeight: '700',
-    color: '#0B1721',
+    color: colors.account
   },
   modalText: {
-    color: '#60707D',
+    color: colors.modalText,
     textAlign: 'center',
     fontSize: 13,
     fontWeight: '400',
@@ -168,7 +173,7 @@ export default StyleSheet.create({
     marginBottom: 28,
   },
   primaryCont: {
-    backgroundColor: 'rgba(42, 123, 187, 1)',
+    backgroundColor: colors.buttoncolor,
     marginHorizontal: 10,
     justifyContent: 'center',
     alignItems: 'center',
@@ -177,7 +182,7 @@ export default StyleSheet.create({
     borderRadius: 8,
   },
   primaryCont1: {
-    backgroundColor: '#d3d3d3',
+    backgroundColor: colors.lightgray,
     marginHorizontal: 10,
     justifyContent: 'center',
     alignItems: 'center',
@@ -186,17 +191,17 @@ export default StyleSheet.create({
     borderRadius: 8,
   },
   primary: {
-    color: 'white',
+    color: colors.white,
     fontWeight: '600',
     fontSize: 14,
   },
   primary1: {
-    color: '#414a4c',
+    color: colors.outerspace,
     fontWeight: '600',
     fontSize: 14,
   },
   deleteiconview: {
-    backgroundColor: '#ffc1c3',
+    backgroundColor: colors.lightred,
     borderRadius: 80,
     padding: 10,
     justifyContent: 'center',
