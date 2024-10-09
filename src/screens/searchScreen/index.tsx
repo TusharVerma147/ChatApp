@@ -6,6 +6,8 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
+  KeyboardAvoidingView,
+  Platform 
 } from 'react-native';
 import React, {useState} from 'react';
 import Data from '../../../data.json';
@@ -52,7 +54,9 @@ const Search = ({navigation}: {navigation: any}) => {
     navigation.navigate('BottomTab');
   };
   return (
+  
     <SafeAreaView style={styles.container}>
+  
       <View style={styles.header}>
         <TouchableOpacity onPress={back}>
           <Image style={styles.back} source={Icons.back} />
@@ -81,7 +85,9 @@ const Search = ({navigation}: {navigation: any}) => {
           </View>
         )}
       </View>
+     
     </SafeAreaView>
+   
   );
 };
 

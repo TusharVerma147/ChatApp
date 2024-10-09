@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import { colors } from '../../themes';
+
 export default StyleSheet.create({
   container: {
     flex: 1,
@@ -52,13 +53,15 @@ export default StyleSheet.create({
 
   textinputstyle: {
     borderRadius: 8,
+    flex:1,
     backgroundColor: colors.white,
     marginHorizontal: 10,
     borderWidth: 1,
     borderColor: colors.modalText,
     paddingHorizontal: 10,
-    marginTop:11
-  },
+    marginTop:8,
+    paddingVertical:15
+  } ,
   containerStyle: {
     paddingVertical: 10,
     // backgroundColor:'#fffaf0'
@@ -80,8 +83,10 @@ export default StyleSheet.create({
     height: 30,
   },
   sendCont: {
-    marginRight: 10,
-    marginBottom: 5,
+    marginRight:10 ,
+    alignItems:'flex-end',
+    // marginBottom: 10,
+    justifyContent:'center'
   },
   modalContainer: {
     flex: 1,

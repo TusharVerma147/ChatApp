@@ -27,6 +27,7 @@ const CustomModal1: React.FC<CustomModalProps> = ({visible, onClose, close,delet
        >
       <TouchableWithoutFeedback onPress={close}>
         <View style={styles.modalContainer}>
+          <TouchableWithoutFeedback>
           <View style={styles.modalContent}>
             <TouchableOpacity >
               <View style={styles.listview}>
@@ -56,6 +57,7 @@ const CustomModal1: React.FC<CustomModalProps> = ({visible, onClose, close,delet
               </View>
             </TouchableOpacity>
           </View>
+          </TouchableWithoutFeedback>
         </View>
       </TouchableWithoutFeedback>
     </Modal>

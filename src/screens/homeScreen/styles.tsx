@@ -42,10 +42,10 @@ export default StyleSheet.create({
        marginHorizontal:16,
        backgroundColor:colors.white,
        borderRadius:8,
-       padding:16,
+       paddingLeft:10,
        flexDirection:'row',
       //  justifyContent:'center',
-       alignItems:'center'
+       alignItems:'center',
       },
       nochat:{
         flex:1,

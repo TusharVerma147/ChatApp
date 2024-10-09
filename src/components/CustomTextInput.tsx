@@ -8,7 +8,7 @@ interface CustomTextInputProps extends TextInputProps {
 
 const CustomTextInput: React.FC<CustomTextInputProps> = ({ placeholder, value, onChangeText }) => {
   return (
-    <View>
+   
       <TextInput
         style={[styles.text]}
         placeholder={placeholder}
@@ -16,7 +16,7 @@ const CustomTextInput: React.FC<CustomTextInputProps> = ({ placeholder, value, o
          onChangeText={onChangeText}
        
       />
-    </View>
+   
   );
 };
 
@@ -25,7 +25,10 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '500', 
     paddingHorizontal: 15,
-    color: colors.black
+    paddingVertical:14,
+    color: colors.black,
+    flex:1,
+    // backgroundColor:'red'
   },
 });
 

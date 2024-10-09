@@ -25,11 +25,6 @@ const Home = ({navigation}: {navigation: any}) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const [chattedUsers, setChattedUsers] = useState<ChattedUser[]>([]);
-
-
-
-
-
   const loadChattedUsers = async () => {
     try {
       const storedUsers = await AsyncStorage.getItem('chatted_users');
@@ -75,15 +70,12 @@ const Home = ({navigation}: {navigation: any}) => {
     navigation.navigate('Search');
     setModalVisible(false);
   };
-
- 
-
   return (
     <View style={styles.container}>
       <View style={styles.upper}>
         <View>
           <Text style={styles.location}>Messages</Text>
-          <Text style={styles.sub2}>45 Contacts</Text>
+          <Text style={styles.sub2}>{chattedUsers.length } Contacts</Text>
         </View>
         <TouchableOpacity onPress={startchat}>
           <Image source={Icons.plus} style={styles.img3} />

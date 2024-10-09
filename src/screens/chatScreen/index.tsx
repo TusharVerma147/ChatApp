@@ -1,53 +1,52 @@
 import {
   View,
   Text,
-  StyleSheet,
   Image,
   TouchableOpacity,
   SafeAreaView,
   Modal,
   Alert,
   FlatList,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
 } from 'react-native';
-import React, {useState, useEffect, useCallback} from 'react';
-import {GiftedChat, InputToolbar, Send, Bubble} from 'react-native-gifted-chat';
+import React, { useState, useEffect, useCallback } from 'react';
+import { GiftedChat, InputToolbar, Send, Bubble, IMessage } from 'react-native-gifted-chat';
 import Icons from '../../assets';
 import styles from './styles';
-import {useRoute} from '@react-navigation/native';
+import { useRoute, useNavigation } from '@react-navigation/native';
 import CustomModal1 from '../../components/CustomModal1';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
-
-interface Message {
+interface User {
   _id: number;
-  text: string;
-  createdAt: Date;
-  user: {
-    _id: number;
-    name?: string;
-    avatar?: string;
-  };
+  name?: string;
+  avatar?: string;
+}
+
+interface Message extends IMessage {
   emoji?: string | null;
 }
 
-const Chat = ({navigation}: {navigation: any}) => {
-  const [dotmodalVisible, setdotModalVisible] = useState(false);
-  const [msgs, setMsgs] = useState([]);
-  const [selectedMessage, setSelectedMessage] = useState(null);
-  const [reactionModalVisible, setReactionModalVisible] = useState(false);
-  const [deleteModal, setdeleteModal] = useState(false);
-  const [emojis] = useState(['😀', '❤️', '👍', '😢', '🎉']);
-  const route = useRoute();
-  const {name, profile} = route?.params;
+interface RouteParams {
+  name: string;
+  profile: string;
+}
 
+const Chat: React.FC = () => {
+  const [dotModalVisible, setDotModalVisible] = useState<boolean>(false);
+  const [msgs, setMsgs] = useState<Message[]>([]);
+  const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
+  const [reactionModalVisible, setReactionModalVisible] = useState<boolean>(false);
+  const [deleteModal, setDeleteModal] = useState<boolean>(false);
+  const [emojis] = useState<string[]>(['😀', '❤️', '👍', '😢', '🎉']);
+
+  const navigation = useNavigation();
+  const route = useRoute();
+  const { name, profile } = route.params as RouteParams;
   const userId = 1;
 
   const storageKey = `chat_messages_${userId}_${profile || name}`;
-
   const chattedUsersKey = 'chatted_users';
-
 
   useEffect(() => {
     const loadMessages = async () => {
@@ -63,9 +62,6 @@ const Chat = ({navigation}: {navigation: any}) => {
 
     loadMessages();
   }, [storageKey]);
-  
-
-
 
   useEffect(() => {
     const saveMessages = async (newMessages: Message[]) => {
@@ -79,71 +75,68 @@ const Chat = ({navigation}: {navigation: any}) => {
     saveMessages(msgs);
   }, [msgs, storageKey]);
 
-  useEffect(() => {
-    const addUserToChattedList = async () => {
-      try {
-        const storedUsers = await AsyncStorage.getItem(chattedUsersKey);
-        const chattedUsers: any[] = storedUsers ? JSON.parse(storedUsers) : [];
+  const addUserToChattedList = async () => {
+    try {
+      const storedUsers = await AsyncStorage.getItem(chattedUsersKey);
+      const chattedUsers: Array<{ id: number; name: string; profileImg: string }> = storedUsers ? JSON.parse(storedUsers) : [];
 
-        
-        const userExists = chattedUsers.some((user) => user.name === name);
-        if (!userExists) {
-          const newUser = {
-            id: Date.now(), 
-            name,
-            profileImg: profile,
-          };
-          const updatedUsers = [...chattedUsers, newUser];
-          await AsyncStorage.setItem(chattedUsersKey, JSON.stringify(updatedUsers));
-        }
-      } catch (error) {
-        console.error('Error adding user to chatted list: ', error);
+      const userExists = chattedUsers.some(user => user.name === name);
+      if (!userExists) {
+        const newUser = {
+          id: Date.now(),
+          name,
+          profileImg: profile,
+        };
+        const updatedUsers = [...chattedUsers, newUser];
+        await AsyncStorage.setItem(chattedUsersKey, JSON.stringify(updatedUsers));
       }
-    };
+    } catch (error) {
+      console.error('Error adding user to chatted list: ', error);
+    }
+  };
 
+  useEffect(() => {
     addUserToChattedList();
   }, [name, profile]);
 
-
   const more = () => {
-    setdotModalVisible(true);
+    setDotModalVisible(true);
   };
 
   const closeModal = () => {
-    setdotModalVisible(false);
+    setDotModalVisible(false);
   };
 
   const back = () => {
-    navigation.navigate('Search');
+    navigation.goBack();
   };
-
-
-
+  interface ChattedUser {
+    id: number;
+    name: string;
+    profileImg: string;
+  }
+  
   const deleteMessages = async () => {
     try {
-      await AsyncStorage.removeItem(storageKey); 
+      await AsyncStorage.removeItem(storageKey);
       const storedUsers = await AsyncStorage.getItem('chatted_users');
       if (storedUsers) {
         const chattedUsers = JSON.parse(storedUsers);
-        const updatedUsers = chattedUsers.filter(user => user.name !== name);
+        const updatedUsers = chattedUsers.filter((user: ChattedUser) => user.name !== name);
+
         await AsyncStorage.setItem('chatted_users', JSON.stringify(updatedUsers));
       }
-  
-      setMsgs([]); 
-      setdotModalVisible(!dotmodalVisible);
-      
-     
-      Alert.alert(
-        'Chat Deleted',
-        'The chat has been successfully deleted.',
-        [{ text: 'OK', onPress: () => console.log('OK Pressed') }]
-      );
+
+      setMsgs([]);
+      setDotModalVisible(false);
+
+      Alert.alert('Chat Deleted', 'The chat has been successfully deleted.', [
+        { text: 'OK', onPress: () => console.log('OK Pressed') },
+      ]);
     } catch (error) {
       console.error('Failed to delete messages', error);
     }
   };
-  
-  
 
   const renderActions = useCallback(() => {
     return (
@@ -151,67 +144,61 @@ const Chat = ({navigation}: {navigation: any}) => {
         <Image source={Icons.plus} style={styles.add} />
       </TouchableOpacity>
     );
-  });
+  }, []);
 
-  const renderSend = props => (
+  const renderSend = (props: any) => (
     <Send {...props} containerStyle={styles.sendCont}>
       <Image source={Icons.telegram} style={styles.send} />
     </Send>
   );
 
- 
-  const handleLongPress = (context, message) => {
+  const handleLongPress = (context: any, message: Message) => {
     setSelectedMessage(message);
     setReactionModalVisible(true);
   };
 
- 
   const handleDelete = () => {
-    setReactionModalVisible(false);  
-    setdeleteModal(true)
-
-    
+    setReactionModalVisible(false);
+    setDeleteModal(true);
   };
+
   const confirmDelete = () => {
-    setMsgs(prevMsgs =>
-      prevMsgs.filter(msg => msg._id !== selectedMessage._id),
-    );
+    if (selectedMessage) {
+      setMsgs(prevMsgs =>
+        prevMsgs.filter(msg => msg._id !== selectedMessage._id),
+      );
+    }
     setReactionModalVisible(false);
-    setdeleteModal(false);
+    setDeleteModal(false);
   };
 
-  
-  const handleEmojiSelect = emoji => {
-    setMsgs(prevMsgs =>
-      prevMsgs.map(msg =>
-        msg._id === selectedMessage._id
-          ? {...msg, emoji: msg.emoji === emoji ? null : emoji}
-          : msg,
-      ),
-    );
-    setReactionModalVisible(false);
-  };
-
-
- 
-
-  const renderMessage = props => {
-    const {currentMessage} = props;
-  
-    const handleEmojiTap = () => {
+  const handleEmojiSelect = (emoji: string) => {
+    if (selectedMessage) {
       setMsgs(prevMsgs =>
         prevMsgs.map(msg =>
-          msg._id === currentMessage._id
-            ? {...msg, emoji: null} 
+          msg._id === selectedMessage._id
+            ? { ...msg, emoji: msg.emoji === emoji ? null : emoji }
             : msg,
         ),
       );
+    }
+    setReactionModalVisible(false);
+  };
+
+  const renderMessage = (props: any) => {
+    const { currentMessage } = props;
+
+    const handleEmojiTap = () => {
+      setMsgs(prevMsgs =>
+        prevMsgs.map(msg =>
+          msg._id === currentMessage._id ? { ...msg, emoji: null } : msg,
+        ),
+      );
     };
-  
+
     return (
       <View style={styles.msgContainer}>
         <Bubble {...props} />
-       
         {currentMessage.emoji ? (
           <TouchableOpacity onPress={handleEmojiTap}>
             <View style={styles.reactionContainer}>
@@ -219,11 +206,10 @@ const Chat = ({navigation}: {navigation: any}) => {
             </View>
           </TouchableOpacity>
         ) : null}
-      
       </View>
     );
   };
-  
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.upper}>
@@ -247,17 +233,19 @@ const Chat = ({navigation}: {navigation: any}) => {
           </View>
         </TouchableOpacity>
       </View>
+
       <View style={styles.giftedview}>
         <GiftedChat
           messages={msgs}
           onSend={messages => {
             setMsgs(prev => GiftedChat.append(prev, messages));
           }}
-          alignTop={true}
           onLongPress={handleLongPress}
-          user={{_id: userId}}
+          user={{ _id: userId }}
           renderMessage={renderMessage}
-          textInputStyle={styles.textinputstyle}
+          textInputProps={{
+            style: styles.textinputstyle,
+          }}
           renderInputToolbar={props => (
             <InputToolbar containerStyle={styles.containerStyle} {...props} />
           )}
@@ -272,84 +260,52 @@ const Chat = ({navigation}: {navigation: any}) => {
         animationType="fade"
         transparent
         onRequestClose={() => setReactionModalVisible(false)}>
-             <TouchableWithoutFeedback onPress={()=>setReactionModalVisible(false)}>
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <FlatList
-              data={emojis}
-              horizontal
-              renderItem={({item}) => (
-                <TouchableOpacity onPress={() => handleEmojiSelect(item)}>
-                  <Text style={styles.emoji}>{item}</Text>
+        <TouchableWithoutFeedback onPress={() => setReactionModalVisible(false)}>
+          <View style={styles.modalContainer}>
+            <TouchableWithoutFeedback>
+              <View style={styles.modalContent}>
+                <FlatList
+                  data={emojis}
+                  horizontal
+                  renderItem={({ item }) => (
+                    <TouchableOpacity onPress={() => handleEmojiSelect(item)}>
+                      <Text style={styles.emoji}>{item}</Text>
+                    </TouchableOpacity>
+                  )}
+                  keyExtractor={item => item}
+                  style={styles.emojiList}
+                />
+                <TouchableOpacity onPress={handleDelete}>
+                  <View style={styles.listview}>
+                    <Image style={styles.delete} source={Icons.delete} />
+                    <Text style={styles.deletetext}>Delete</Text>
+                  </View>
                 </TouchableOpacity>
-              )}
-              keyExtractor={item => item}
-              style={styles.emojiList}
-            />
-            <TouchableOpacity>
-              <View style={styles.listview}>
-                <Image source={Icons.reply} style={styles.delete} />
-                <Text style={styles.chattext}>Reply</Text>
               </View>
-            </TouchableOpacity>
-            <View style={styles.lineView}></View>
-            <TouchableOpacity>
-              <View style={styles.listview}>
-                <Image source={Icons.forward} style={styles.delete} />
-                <Text style={styles.chattext}>Forward</Text>
-              </View>
-            </TouchableOpacity>
-            <View style={styles.lineView}></View>
-            <TouchableOpacity>
-              <View style={styles.listview}>
-                <Image source={Icons.copy} style={styles.delete} />
-                <Text style={styles.chattext}>Copy</Text>
-              </View>
-            </TouchableOpacity>
-            <View style={styles.lineView}></View>
-            <TouchableOpacity>
-              <View style={styles.listview}>
-                <Image style={styles.delete} source={Icons.star} />
-                <Text style={styles.chattext}>Star</Text>
-              </View>
-            </TouchableOpacity>
-            <View style={styles.lineView}></View>
-            <TouchableOpacity>
-              <View style={styles.listview}>
-                <Image source={Icons.edit} style={styles.delete} />
-                <Text style={styles.chattext}>Edit</Text>
-              </View>
-            </TouchableOpacity>
-            <View style={styles.lineView}></View>
-            <TouchableOpacity onPress={handleDelete}>
-              <View style={styles.listview}>
-                <Image style={styles.delete} source={Icons.delete} />
-                <Text style={styles.deletetext}>Delete</Text>
-              </View>
-            </TouchableOpacity>
+            </TouchableWithoutFeedback>
           </View>
-        </View>
         </TouchableWithoutFeedback>
       </Modal>
+
       <Modal
         transparent
         visible={deleteModal}
         animationType="fade"
-        onRequestClose={() => setdeleteModal(false)}>
+        onRequestClose={() => setDeleteModal(false)}>
         <View style={styles.modalOverlay}>
           <View style={styles.modalContainer1}>
             <View style={styles.deleteiconview}>
-            <Image source={Icons.delete} style={styles.delete}/>
+              <Image source={Icons.delete} style={styles.delete} />
             </View>
             <Text style={styles.accountText}>Delete Message?</Text>
             <Text style={styles.modalText}>
               Are you sure you want to delete this message?
             </Text>
-            <View style={{flexDirection: 'row'}}>
+            <View style={{ flexDirection: 'row' }}>
               <TouchableOpacity
                 style={styles.primaryCont1}
-                onPress={() => setdeleteModal(false)}>
-                <Text style={styles.primary1}>No,Cancel</Text>
+                onPress={() => setDeleteModal(false)}>
+                <Text style={styles.primary1}>No, Cancel</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.primaryCont}
@@ -360,8 +316,9 @@ const Chat = ({navigation}: {navigation: any}) => {
           </View>
         </View>
       </Modal>
+
       <CustomModal1
-        visible={dotmodalVisible}
+        visible={dotModalVisible}
         onClose={closeModal}
         close={closeModal}
         deleteMessages={deleteMessages}
@@ -371,4 +328,3 @@ const Chat = ({navigation}: {navigation: any}) => {
 };
 
 export default Chat;
-
