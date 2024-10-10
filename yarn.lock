@@ -3052,6 +3052,8 @@ __metadata:
     prettier: 2.8.8
     react: 18.3.1
     react-native: 0.75.3
+    react-native-communications: ^2.2.1
+    react-native-contacts: ^8.0.1
     react-native-gesture-handler: ^2.20.0
     react-native-get-random-values: ^1.11.0
     react-native-gifted-chat: ^2.6.4
@@ -8080,6 +8082,16 @@ __metadata:
   version: 2.2.1
   resolution: "react-native-communications@npm:2.2.1"
   checksum: 0b1a63a116a34866d06790b0dd1153ff622aba148a8ad7d87e18e0ba6c2cfa545210be0d04f3428341a72fbcbd09ac95ea38b92197856cb0fda67bca2321e07b
+  languageName: node
+  linkType: hard
+
+"react-native-contacts@npm:^8.0.1":
+  version: 8.0.1
+  resolution: "react-native-contacts@npm:8.0.1"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 98f65df032f1c88ddfd2d3d64f127bb963e1cfab92aab182909dad0ac365db3526afce193bb894e84ce36a44ca903cf48cc7e184ca72559559d5509870a01bc7
   languageName: node
   linkType: hard
 

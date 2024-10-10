@@ -16,12 +16,8 @@ import styles from './styles';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import CustomModal1 from '../../components/CustomModal1';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { colors } from '../../themes';
 
-interface User {
-  _id: number;
-  name?: string;
-  avatar?: string;
-}
 
 interface Message extends IMessage {
   emoji?: string | null;
@@ -30,6 +26,7 @@ interface Message extends IMessage {
 interface RouteParams {
   name: string;
   profile: string;
+  color:string
 }
 
 const Chat: React.FC = () => {
@@ -42,7 +39,7 @@ const Chat: React.FC = () => {
 
   const navigation = useNavigation();
   const route = useRoute();
-  const { name, profile } = route.params as RouteParams;
+  const { name, profile, color } = route.params as RouteParams;
   const userId = 1;
 
   const storageKey = `chat_messages_${userId}_${profile || name}`;
@@ -63,6 +60,8 @@ const Chat: React.FC = () => {
     loadMessages();
   }, [storageKey]);
 
+
+  
   useEffect(() => {
     const saveMessages = async (newMessages: Message[]) => {
       try {
@@ -218,7 +217,7 @@ const Chat: React.FC = () => {
             <Image source={Icons.back} style={styles.back} />
           </TouchableOpacity>
           <View style={styles.upper1}>
-            <View style={styles.profileimg}>
+            <View style={[styles.profileimg,/*{backgroundColor:color==null?colors.skyblue:color}*/]}>
               <Text style={styles.profileimgtext}>{profile}</Text>
             </View>
             <View>
@@ -273,8 +272,44 @@ const Chat: React.FC = () => {
                     </TouchableOpacity>
                   )}
                   keyExtractor={item => item}
-                  style={styles.emojiList}
+                  // style={styles.emojiList}
                 />
+                <View style={styles.lineView}></View>
+            <TouchableOpacity>
+              <View style={styles.listview}>
+                <Image  style={styles.delete}source={Icons.reply} />
+                <Text style={styles.chattext}>Reply</Text>
+              </View>
+            </TouchableOpacity>
+            <View style={styles.lineView}></View>
+            <TouchableOpacity>
+              <View style={styles.listview}>
+                <Image  style={styles.delete}source={Icons.forward} />
+                <Text style={styles.chattext}>Forward</Text>
+              </View>
+            </TouchableOpacity>
+            <View style={styles.lineView}></View>
+            <TouchableOpacity>
+              <View style={styles.listview}>
+                <Image  style={styles.delete}source={Icons.copy} />
+                <Text style={styles.chattext}>Copy</Text>
+              </View>
+            </TouchableOpacity>
+            <View style={styles.lineView}></View>
+            <TouchableOpacity>
+              <View style={styles.listview}>
+                <Image  style={styles.delete}source={Icons.star1} />
+                <Text style={styles.chattext}>Star</Text>
+              </View>
+            </TouchableOpacity>
+            <View style={styles.lineView}></View>
+            <TouchableOpacity>
+              <View style={styles.listview}>
+                <Image  style={styles.delete}source={Icons.edit} />
+                <Text style={styles.chattext}>Edit</Text>
+              </View>
+              <View style={styles.lineView}></View>
+            </TouchableOpacity>
                 <TouchableOpacity onPress={handleDelete}>
                   <View style={styles.listview}>
                     <Image style={styles.delete} source={Icons.delete} />

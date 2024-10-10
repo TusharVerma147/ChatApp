@@ -6,6 +6,8 @@ import BottomTab from './bottomtab';
 import {ScreenNames} from './screenNames';
 import Search from '../screens/searchScreen';
 import Chat from '../screens/chatScreen';
+import AddContact from '../screens/addContact';
+import ContactDetails from '../screens/contactDetails';
 
 
 
@@ -40,6 +42,16 @@ const Stack = createNativeStackNavigator();
        <Stack.Screen
           component={Chat}
             name={ScreenNames.Chat}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          component={AddContact}
+            name={ScreenNames.AddContact}
+          options={{headerShown: false}}
+        />
+         <Stack.Screen
+          component={ContactDetails}
+            name={ScreenNames.ContactDetails}
           options={{headerShown: false}}
         />
      

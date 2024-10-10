@@ -1,6 +1,7 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 import { colors } from '../../themes';
 
+const windowWidth = Dimensions.get('window').width;
 export default StyleSheet.create({
   container: {
     flex: 1,
@@ -95,18 +96,15 @@ export default StyleSheet.create({
   },
   modalContent: {
     backgroundColor: colors.white,
-    height: '60%',
+    height: '62.8%',
     paddingHorizontal: 10,
     paddingVertical: 30,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
-  emojiList: {
-    marginBottom: 20,
-  },
   emoji: {
     fontSize: 30,
-    marginHorizontal: 23,
+    marginHorizontal: 22,
   },
   listview: {
     flexDirection: 'row',

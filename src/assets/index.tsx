@@ -31,6 +31,9 @@ const Icons = {
     star1:require('./icons/star1.png'),
     edit:require('./icons/edit-text.png'),
     telegram:require('./icons/telegram.png'),
+    comment:require('./icons/comment.png'),
+    calls:require('./icons/calls.png'),
+    user2:require('./icons/user2.png'),
   };
   
   

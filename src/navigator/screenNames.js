@@ -1,3 +1,5 @@
+import AddContact from '../screens/addContact';
+import ContactDetails from '../screens/contactDetails';
 import Search from '../screens/searchScreen';
 
 const ScreenNames = {
@@ -9,6 +11,8 @@ const ScreenNames = {
   Account: 'ACCOUNT',
   Favourite: 'FAVOURITES',
   Menu: 'MENU',
+  AddContact:'AddContact',
+  ContactDetails:'ContactDetails'
 };
 
 export {ScreenNames};

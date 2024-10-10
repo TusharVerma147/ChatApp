@@ -7,32 +7,39 @@ import {
   TouchableOpacity,
   Image,
   KeyboardAvoidingView,
-  Platform 
+  Platform,
 } from 'react-native';
 import React, {useState} from 'react';
 import Data from '../../../data.json';
 import Icons from '../../assets';
 import CustomTextInput from '../../components/CustomTextInput';
 import styles from './styles';
-import AsyncStorage from '@react-native-async-storage/async-storage'; 
 
 interface Item {
   id: number;
   name: string;
   profileImg: string;
+  color:string
 }
 
 const Search = ({navigation}: {navigation: any}) => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [filteredData, setFilteredData] = useState<Item[]>(Data);
 
-  
-  const click=(item:any)=>{
-    navigation.navigate('Chat', {name: item?.name ?? 'name',profile:item?.profileImg});
-  }
+  const click = (item: any) => {
+    navigation.navigate('Chat', {
+      name: item?.name ?? 'name',
+      profile: item?.profileImg,
+      color: item?.color
+    });
+  };
   const renderItem = ({item}: {item: Item}) => (
-    <TouchableOpacity style={styles.flatlist} activeOpacity={0.6} onPress={() => click(item)}>
-      <View style={styles.imageStyle}>
+    <TouchableOpacity
+      style={styles.flatlist}
+      activeOpacity={0.6}
+      onPress={() => click(item)}>
+      <View style={[styles.imageStyle,/*{backgroundColor:item.color}*/]}>
+
         <Text style={styles.textimg}>{item.profileImg}</Text>
       </View>
       <Text style={styles.text}>{item.name}</Text>
@@ -54,15 +61,13 @@ const Search = ({navigation}: {navigation: any}) => {
     navigation.navigate('BottomTab');
   };
   return (
-  
     <SafeAreaView style={styles.container}>
-  
       <View style={styles.header}>
         <TouchableOpacity onPress={back}>
           <Image style={styles.back} source={Icons.back} />
         </TouchableOpacity>
         <View style={styles.input}>
-        <Image source={Icons.search}/>
+          <Image source={Icons.search} />
           <CustomTextInput
             placeholder="Search here..."
             value={searchQuery}
@@ -70,7 +75,7 @@ const Search = ({navigation}: {navigation: any}) => {
           />
         </View>
       </View>
-        <View style={styles.listCont}>
+      <View style={styles.listCont}>
         {filteredData.length > 0 ? (
           <FlatList
             bounces={false}
@@ -81,15 +86,12 @@ const Search = ({navigation}: {navigation: any}) => {
           />
         ) : (
           <View style={styles.noResults}>
-           <Image source={Icons.noresult} style={styles.noResultsimg}/>
+            <Image source={Icons.noresult} style={styles.noResultsimg} />
           </View>
         )}
       </View>
-     
     </SafeAreaView>
-   
   );
 };
 
 export default Search;
-
