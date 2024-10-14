@@ -37,4 +37,9 @@ target 'ChatApp' do
       # :ccache_enabled => true
     )
   end
+  # target 'app' do
+  #   ...
+  #   pod 'react-native-contacts', :path => '../node_modules/react-native-contacts' <-- add me
+  #   ...
+  # end
 end
